@@ -1,16 +1,16 @@
-import { HomePage } from './../pages/home/home';
 import { LoginPage } from './../pages/login/login';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = HomePage;
+  rootPage: any = TabsPage;
 
   constructor(
     platform: Platform,
@@ -25,7 +25,7 @@ export class MyApp {
       splashScreen.hide();
       await storage.ready();
       const sesion = await storage.get("user");
-      this.rootPage = sesion ? HomePage : LoginPage;
+      this.rootPage = sesion ? TabsPage : LoginPage;
     });
   }
 }

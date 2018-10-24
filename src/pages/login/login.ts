@@ -1,10 +1,10 @@
-import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { AuthProvider } from '../../providers/auth/auth';
+import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -32,7 +32,7 @@ export class LoginPage {
           photo: state.photoURL
         };
         await this.authProvider.saveSesion(user).catch(error => console.error(error));
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(TabsPage);
       }
     })
   }

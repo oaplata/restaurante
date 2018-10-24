@@ -6,18 +6,15 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class AuthProvider {
 
-  constructor(
-    private afDataBase: AngularFireDatabase,
+  constructor(private afDataBase: AngularFireDatabase,
     private afAuth: AngularFireAuth,
-    private storage: Storage) {
-  }
+    private storage: Storage) { }
 
   async saveSesion(user: any) {
     try {
       await this.register(user);
       const userDataBase = await this.getUser(user.uid);
       await this.storage.ready();
-      await this.storage.remove("user");
       await this.storage.set("user", userDataBase);
     } catch (error) {
       throw error;
@@ -38,7 +35,7 @@ export class AuthProvider {
   }
 
   getSesion() {
-    return this.afAuth.auth.currentUser;
+    return this.storage.get("user");
   }
 
 }

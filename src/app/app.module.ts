@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -15,6 +14,12 @@ import { LoginPage } from '../pages/login/login';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthProvider } from '../providers/auth/auth';
 import { ComponentsModule } from '../components/components.module';
+import { TabsPage } from '../pages/tabs/tabs';
+import { AdminPageModule } from '../pages/admin/admin.module';
+import { OrdersPageModule } from '../pages/orders/orders.module';
+import { CreatePageModule } from '../pages/create/create.module';
+import { LocatePageModule } from '../pages/locate/locate.module';
+import { OrderProvider } from '../providers/order/order';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAfkUQmDrDNqxPJaJrot9AS3G6DFVTCasU",
@@ -28,8 +33,8 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    LoginPage
+    LoginPage,
+    TabsPage,
   ],
   imports: [
     BrowserModule,
@@ -38,20 +43,25 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,
-    ComponentsModule
+    ComponentsModule,
+    AdminPageModule,
+    OrdersPageModule,
+    CreatePageModule,
+    LocatePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    LoginPage
+    LoginPage,
+    TabsPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
-    AngularFireDatabase
+    AngularFireDatabase,
+    OrderProvider
   ]
 })
 export class AppModule { }

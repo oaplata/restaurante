@@ -1,0 +1,62 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>create</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="create-form">
+    <ion-list radio-group [(ngModel)]="typeOrder">
+      <ion-item>
+        <ion-label>Para Llevar</ion-label>
+        <ion-radio value="llevar"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Para la mesa</ion-label>
+        <ion-radio value="mesa"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item *ngIf="typeOrder === 'llevar'">
+        <ion-label color="primary" floating>Dirección</ion-label>
+        <ion-input type="text" [(ngModel)]="adressOrder"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="typeOrder === 'mesa'">
+        <ion-label color="primary" floating>Mesa</ion-label>
+        <ion-input type="text" [(ngModel)]="tableOrder"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" floating>Cantidad</ion-label>
+        <ion-input type="tel" [(ngModel)]="amountPlate"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" floating>Plato</ion-label>
+        <ion-select [(ngModel)]="plateOrder">
+          <ion-option *ngFor="let plate of getPlates()" [value]="plate">{{plate.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" floating>Decripción</ion-label>
+        <ion-textarea [(ngModel)]="descriptionPlate"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <button ion-button (click)="addPlateToOder()" [disabled]="!plateOrder || !amountPlate">Agregar</button>
+  </div>
+
+  <div class="order-preview" *ngIf="getOrder()">
+    <ion-list>
+      <ion-item *ngFor="let plate of getOrder().plates">
+        <h3>{{plate.amount}} - {{plate.name}}</h3>
+        <p>{{plate.description}}</p>
+        <button ion-button (click)="removePlateOfOrder(plate)">eliminar</button>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button (click)="saveOrder()">Crear Orden</button>
+  </div>
+</ion-content>
