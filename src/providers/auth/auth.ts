@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Storage } from '@ionic/storage';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AuthProvider {
@@ -27,11 +29,11 @@ export class AuthProvider {
   }
 
   getUser(uid: string) {
-    return this.afDataBase.object(`users/${uid}`).valueChanges().take(1).toPromise()
+    return this.afDataBase.object(`users/${uid}`).valueChanges().first().toPromise();
   }
 
   signOut() {
-    return this.afAuth.auth.signOut()
+    return this.afAuth.auth.signOut();
   }
 
   getSesion() {

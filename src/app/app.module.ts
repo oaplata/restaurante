@@ -1,3 +1,4 @@
+import { BillComponent } from './../components/bill/bill';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -9,6 +10,8 @@ import { MyApp } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
+
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 import { LoginPage } from '../pages/login/login';
 import { IonicStorageModule } from '@ionic/storage';
@@ -54,6 +57,7 @@ export const firebaseConfig = {
     MyApp,
     LoginPage,
     TabsPage,
+    BillComponent
   ],
   providers: [
     StatusBar,
@@ -61,7 +65,8 @@ export const firebaseConfig = {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
     AngularFireDatabase,
-    OrderProvider
+    OrderProvider,
+    GoogleMaps
   ]
 })
 export class AppModule { }

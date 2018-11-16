@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the LocatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  MyLocation
+} from '@ionic-native/google-maps';
 
 @IonicPage()
 @Component({
@@ -14,12 +18,55 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'locate.html',
 })
 export class LocatePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public map: GoogleMap;
+  constructor(public navParams: NavParams, private navCtrl: NavController,
+    private googleMaps: GoogleMaps) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LocatePage');
+    this.loadMap();
+  }
+
+  async loadMap() {
+
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: 43.0741904, // default location
+          lng: -89.3809802 // default location
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    };
+
+    this.map = this.googleMaps.create('map_canvas', mapOptions);
+    await this.map.one(GoogleMapsEvent.MAP_READY).catch(error => console.log(error));
+    await this.getPosition();
+  }
+
+  async getPosition() {
+    const response: any = await this.map.getMyLocation().catch(error => console.log(error));
+    const latLng = {
+      lat: 6.5543845,
+      lng: -73.1337710
+    };
+    this.map.moveCamera({
+      target: latLng
+    });
+    this.map.addMarker({
+      title: 'My Position',
+      icon: 'blue',
+      animation: 'DROP',
+      position: response.latLng
+    });
+
+    this.map.addMarker({
+      title: 'El Rinconcito del Sabor',
+      icon: 'blue',
+      animation: 'DROP',
+      position: latLng
+    });
   }
 
 }

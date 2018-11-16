@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Order } from '../../interfaces/order';
@@ -17,6 +18,7 @@ export class CreatePage {
     public amountPlate: number;
     public plateOrder: Plate;
     public descriptionPlate: string;
+    public isEditing: boolean = false;
 
     private order: Order;
     private plates: Plate[];
@@ -25,7 +27,8 @@ export class CreatePage {
         public navParams: NavParams,
         private authProvider: AuthProvider,
         private orderProvider: OrderProvider,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        private storage: Storage) {
         this.plates = [{
             name: "carne",
             value: 8000,
@@ -90,8 +93,13 @@ export class CreatePage {
     async saveOrder(): Promise<void> {
         this.order.type === 'mesa' ? delete this.order.address : delete this.order.table;
         this.order.user = this.user.uid;
-        this.order.id = `${Date.now()}`;
-        const created = await this.orderProvider.saveOrder(this.order).catch(err => console.log(err));
+        let created;
+        if (this.isEditing) {
+            created = await this.orderProvider.updateOrder(this.order).catch(err => console.log(err));
+        } else {
+            this.order.id = `${Date.now()}`;
+            created = await this.orderProvider.saveOrder(this.order).catch(err => console.log(err));
+        }
         this.adressOrder = null;
         this.tableOrder = null;
         this.amountPlate =  null;
@@ -130,10 +138,23 @@ export class CreatePage {
         }
     }
 
-    async ionViewDidLoad() {
+    async ionViewWillEnter(){
         this.user = await this.authProvider.getSesion().catch(err => console.log(err));
         if (!this.user) {
             this.navCtrl.setRoot('page-login');
+        }
+
+        this.isEditing = false;
+        await this.storage.ready();
+        const order = await this.storage.get('order');
+
+        if (order) {
+            this.order = order;
+            await this.storage.remove('order');
+            this.typeOrder = this.order.type;
+            this.adressOrder = this.order.address || '';
+            this.tableOrder = this.order.table || '';
+            this.isEditing = true;
         }
     }
 

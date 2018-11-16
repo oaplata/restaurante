@@ -1,0 +1,45 @@
+<div>
+  <navbar title="Factura"></navbar>
+</div>
+<div class="bill">
+  <div class="header">
+    <h3>Restaurante</h3>
+    <h4>Rinconcito del Sabor</h4>
+    <h4>Horario: 8:00 Am - 4:00 Pm</h4>
+    <br>
+    <br>
+    <h5>Nit: 1100970844-4</h5>
+    <h5>Dirección: Cra 10 # 12 - 37</h5>
+    <h5>Telefono: 7236459</h5>
+  </div>
+  <div class="body">
+    <table>
+      <thead>
+        <tr>
+          <td>{{order.address? 'Dirección' : 'Mesa'}}</td>
+          <td>{{order.table? order.table : order.address}}</td>
+        </tr>
+        <tr>
+          <td>#</td>
+          <td>Descripción</td>
+          <td>Valor</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plate of order.plates">
+            <td>{{plate.amount}}</td>
+            <td>{{plate.name}}</td>
+            <td>{{plate.value | currency:'$':'':'1.0-0'}}</td>
+            <td>{{plate.value * plate.amount | currency:'$':'':'1.0-0'}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p> total: {{getTotal() | currency: '$':'':'1.0-0'}} </p>
+  </div>
+  <div class="foter">
+    <button ion-button *ngIf="order.state === 'active'" (click)="closeOrder()">Cerrar Orden</button>
+    <button ion-button (click)="cancell()">Cancelar</button>
+  </div>
+</div>
