@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-segment [(ngModel)]="active">
     <ion-segment-button value="true">
-      Activas
+      {{'Activas'}}
     </ion-segment-button>
     <ion-segment-button value="false">
       Todas
@@ -20,6 +20,15 @@
       <ion-card-header>
         <h1 *ngIf="order.type === 'mesa'">Mesa: {{order.table}}</h1>
         <h1 *ngIf="order.type === 'llevar'">Dirección: {{order.address}}</h1>
+        <span *ngIf="order.state === 'active'">
+          <ion-icon name="information-circle" color="info"></ion-icon>
+        </span>
+        <span *ngIf="order.state === 'cancelled'">
+          <ion-icon name="close-circle" color="danger"></ion-icon>
+        </span>
+        <span *ngIf="order.state === 'closed'">
+          <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+        </span>
       </ion-card-header>
       <ion-card-content>
         <ul>
@@ -28,8 +37,6 @@
             <p>{{plate.description}}</p>
           </li>
         </ul>
-
-        <p>{{order.state}}</p>
       </ion-card-content>
       <ion-row>
         <ion-col>
@@ -55,6 +62,15 @@
       <ion-card-header>
         <h1 *ngIf="order.type === 'mesa'">Mesa: {{order.table}}</h1>
         <h1 *ngIf="order.type === 'llevar'">Dirección: {{order.address}}</h1>
+        <span *ngIf="order.state === 'active'">
+          <ion-icon name="information-circle" color="info"></ion-icon>
+        </span>
+        <span *ngIf="order.state === 'cancelled'">
+          <ion-icon name="close-circle" color="danger"></ion-icon>
+        </span>
+        <span *ngIf="order.state === 'closed'">
+          <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+        </span>
       </ion-card-header>
       <ion-card-content>
         <ul>
@@ -63,8 +79,6 @@
             <p>{{plate.description}}</p>
           </li>
         </ul>
-
-        <p>{{order.state}}</p>
       </ion-card-content>
       <ion-row>
         <ion-col>

@@ -7,17 +7,16 @@
     <h4>Rinconcito del Sabor</h4>
     <h4>Horario: 8:00 Am - 4:00 Pm</h4>
     <br>
-    <br>
     <h5>Nit: 1100970844-4</h5>
-    <h5>Dirección: Cra 10 # 12 - 37</h5>
+    <h5>{{'Dirección' | translate | async }}: Cra 10 # 12 - 37</h5>
     <h5>Telefono: 7236459</h5>
   </div>
   <div class="body">
     <table>
       <thead>
         <tr>
-          <td>{{order.address? 'Dirección' : 'Mesa'}}</td>
-          <td>{{order.table? order.table : order.address}}</td>
+          <td colspan="2">{{order.address? 'Dirección' : 'Mesa'}}</td>
+          <td colspan="2">{{order.table? order.table : order.address}}</td>
         </tr>
         <tr>
           <td>#</td>

@@ -2,6 +2,7 @@ import { OrderProvider } from './../../providers/order/order';
 import { Component } from '@angular/core';
 import { NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Order } from '../../interfaces/order';
+import { TranslateProvider } from '../../providers/translate/translate';
 
 /**
  * Generated class for the BillComponent component.
@@ -15,7 +16,7 @@ import { Order } from '../../interfaces/order';
 })
 export class BillComponent {
   public order: Order;
-  constructor(private navParams: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController, private orderProvider: OrderProvider) {
+  constructor(public translate: TranslateProvider, private navParams: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController, private orderProvider: OrderProvider) {
     this.order = this.navParams.get("order");
   }
 

@@ -8,7 +8,7 @@ import { BillComponent } from '../../components/bill/bill';
 @IonicPage()
 @Component({
   selector: 'page-orders',
-  templateUrl: 'orders.html',
+  templateUrl: 'orders.html'
 })
 export class OrdersPage {
   public active: string = 'true';

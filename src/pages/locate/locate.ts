@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams } from 'ionic-angular';
 
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-  MyLocation
+  GoogleMapOptions
 } from '@ionic-native/google-maps';
 
 @IonicPage()
@@ -19,7 +15,7 @@ import {
 })
 export class LocatePage {
   public map: GoogleMap;
-  constructor(public navParams: NavParams, private navCtrl: NavController,
+  constructor(public navParams: NavParams,
     private googleMaps: GoogleMaps) {
   }
 

@@ -4,6 +4,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 
@@ -23,6 +24,9 @@ import { OrdersPageModule } from '../pages/orders/orders.module';
 import { CreatePageModule } from '../pages/create/create.module';
 import { LocatePageModule } from '../pages/locate/locate.module';
 import { OrderProvider } from '../providers/order/order';
+import { UserProvider } from '../providers/user/user';
+import { TranslateProvider } from '../providers/translate/translate';
+import { TranslatePipe } from '../pipes/translate/translate';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAfkUQmDrDNqxPJaJrot9AS3G6DFVTCasU",
@@ -37,7 +41,7 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
-    TabsPage,
+    TabsPage 
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ export const firebaseConfig = {
     AdminPageModule,
     OrdersPageModule,
     CreatePageModule,
-    LocatePageModule
+    LocatePageModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -66,7 +71,9 @@ export const firebaseConfig = {
     AuthProvider,
     AngularFireDatabase,
     OrderProvider,
-    GoogleMaps
+    GoogleMaps,
+    UserProvider,
+    TranslateProvider
   ]
 })
 export class AppModule { }

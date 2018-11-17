@@ -14,5 +14,46 @@
 
 
 <ion-content padding>
+  <ion-segment [(ngModel)]="page">
+    <ion-segment-button value="users">
+      Usuarios
+    </ion-segment-button>
+    <ion-segment-button value="sales">
+      Ventas
+    </ion-segment-button>
+  </ion-segment>
 
+  <div *ngIf="page === 'users'">
+    <ion-card *ngFor="let user of users">
+      <ion-card-header>
+        <h1>{{user.name}}</h1>
+        <img [src]="user.photo" [alt]="user.uid">
+      </ion-card-header>
+      <ion-card-content>
+          <ion-list radio-group [(ngModel)]="user.role">
+              <ion-list-header>
+                Rol
+              </ion-list-header>
+            
+              <ion-item>
+                <ion-label>Cliente</ion-label>
+                <ion-radio value="cliente" (click)="changeRol(user)"></ion-radio>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>Mesero</ion-label>
+                <ion-radio value="mesero" (click)="changeRol(user)"></ion-radio>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>Administrador</ion-label>
+                <ion-radio value="admin" (click)="changeRol(user)"></ion-radio>
+              </ion-item>
+            </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="page === 'sales'">
+    <h3>Ventas totales: {{total | currency:'$':'':'1.0-0'}}</h3>
+  </div>
 </ion-content>
