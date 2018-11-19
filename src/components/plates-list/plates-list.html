@@ -1,0 +1,11 @@
+<div>
+  <navbarapp [title]="'Platos' | translate | async"></navbarapp>
+</div>
+<div>
+  <ion-list>
+    <ion-item *ngFor="let plate of plates" (click)="dissmiss(plate)">
+      <h2>{{plate.name | translate | async}} - {{plate.value | currency:'$':'':'1.0-0'}}</h2>
+      <img *ngIf="plate.image" [src]="plate.image" [alt]="plate.name">
+    </ion-item>
+  </ion-list>
+</div>

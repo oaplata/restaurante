@@ -3,4 +3,5 @@ export interface Plate {
   value: number;
   amount: number;
   description: string;
+  image?: string;
 }

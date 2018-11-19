@@ -1,3 +1,25 @@
 page-admin {
-
+    .users {
+        ion-card {
+            position: relative;
+            ion-card-header{
+                overflow: visible;
+                h1 {
+                    font-size: .8em;
+                    width: 75%;
+                    overflow: hidden;
+                    text-transform: capitalize;
+                    font-weight: bold;
+                }
+                img {
+                    width: 20%;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 5px;
+                    right: 20px;
+                    z-index: 1000;
+                }
+            }
+        }
+    }
 }

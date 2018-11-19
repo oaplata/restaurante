@@ -5,8 +5,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { AuthProvider } from '../../providers/auth/auth';
 import { TabsPage } from '../tabs/tabs';
-
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -29,7 +27,8 @@ export class LoginPage {
           name: state.displayName,
           email: state.email,
           lastSesion: Date.now(),
-          photo: state.photoURL
+          photo: state.photoURL,
+          rol: "cliente"
         };
         await this.authProvider.saveSesion(user).catch(error => console.error(error));
         this.navCtrl.setRoot(TabsPage);

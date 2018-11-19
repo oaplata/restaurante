@@ -1,9 +1,6 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>create</ion-title>
-  </ion-navbar>
-
+  <navbarapp [title]="'Crear Orden' | translate | async" *ngIf="!isEditing"></navbarapp>
+  <navbarapp [title]="'Editar Orden' | translate | async" *ngIf="isEditing"></navbarapp>
 </ion-header>
 
 
@@ -11,48 +8,52 @@
   <div class="create-form">
     <ion-segment [(ngModel)]="typeOrder">
       <ion-segment-button value="llevar">
-          Para Llevar
+        {{'Para Llevar' | translate | async}}
       </ion-segment-button>
       <ion-segment-button value="mesa">
-          Para la mesa
+        {{'Para la mesa' | translate | async}}
       </ion-segment-button>
     </ion-segment>
     <ion-list>
       <ion-item *ngIf="typeOrder === 'llevar'">
-        <ion-label color="primary" floating>Dirección</ion-label>
+        <ion-label color="primary" floating>{{'Dirección' | translate | async}}</ion-label>
         <ion-input type="text" [(ngModel)]="adressOrder"></ion-input>
       </ion-item>
       <ion-item *ngIf="typeOrder === 'mesa'">
-        <ion-label color="primary" floating>Mesa</ion-label>
+        <ion-label color="primary" floating>{{'Numero de Mesa' | translate | async}}</ion-label>
         <ion-input type="text" [(ngModel)]="tableOrder"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label color="primary" floating>Plato</ion-label>
-        <ion-select [(ngModel)]="plateOrder">
-          <ion-option *ngFor="let plate of getPlates()" [value]="plate">{{plate.name}}</ion-option>
+      <ion-item (click)="openPlatesModal()">
+        <ion-label color="primary" floating>{{'Producto' | translate | async}}</ion-label>
+        <ion-select [(ngModel)]="plateOrder" disabled>
+          <ion-option *ngFor="let plate of plates" [value]="plate">
+            {{plate.name | translate | async}}
+          </ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" floating>Cantidad</ion-label>
+        <ion-label color="primary" floating>{{'Cantidad' | translate | async}}</ion-label>
         <ion-input type="tel" [(ngModel)]="amountPlate"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" floating>Decripción</ion-label>
+        <ion-label color="primary" floating>{{'Decripción' | translate | async}}</ion-label>
         <ion-textarea [(ngModel)]="descriptionPlate"></ion-textarea>
       </ion-item>
     </ion-list>
-    <button ion-button (click)="addPlateToOder()" [disabled]="!plateOrder || !amountPlate">Agregar</button>
+    <button ion-button (click)="addPlateToOder()" [disabled]="!plateOrder || !amountPlate">{{'Agregar' | translate |
+      async}}</button>
   </div>
 
   <div class="order-preview" *ngIf="getOrder()">
     <ion-list>
       <ion-item *ngFor="let plate of getOrder().plates">
-        <h3>{{plate.amount}} - {{plate.name}}</h3>
-        <p>{{plate.description}}</p>
-        <button ion-button (click)="removePlateOfOrder(plate)">eliminar</button>
+        <h3>{{plate.amount}} - {{plate.name | translate | async}}</h3>
+        <p *ngIf="plate.description">{{plate.description | translate | async}}</p>
+        <button ion-button (click)="removePlateOfOrder(plate)">{{'Eliminar' | translate | async}}</button>
       </ion-item>
     </ion-list>
 
-    <button ion-button (click)="saveOrder()">Crear Orden</button>
+    <button ion-button (click)="saveOrder()" *ngIf="!isEditing">{{'Crear Orden' | translate | async}}</button>
+    <button ion-button (click)="saveOrder()" *ngIf="isEditing">{{'Editar Orden' | translate | async}}</button>
   </div>
 </ion-content>

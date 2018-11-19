@@ -11,22 +11,21 @@ import { MyApp } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 
 import { LoginPage } from '../pages/login/login';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthProvider } from '../providers/auth/auth';
-import { ComponentsModule } from '../components/components.module';
 import { TabsPage } from '../pages/tabs/tabs';
-import { AdminPageModule } from '../pages/admin/admin.module';
-import { OrdersPageModule } from '../pages/orders/orders.module';
-import { CreatePageModule } from '../pages/create/create.module';
-import { LocatePageModule } from '../pages/locate/locate.module';
 import { OrderProvider } from '../providers/order/order';
 import { UserProvider } from '../providers/user/user';
 import { TranslateProvider } from '../providers/translate/translate';
+import { PlatesListComponent } from '../components/plates-list/plates-list';
+import { AdminPage, CreatePage, HomePage, LocatePage, OrdersPage } from '../pages';
 import { TranslatePipe } from '../pipes/translate/translate';
+import { NavbarappComponent } from '../components/navbar/navbar';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAfkUQmDrDNqxPJaJrot9AS3G6DFVTCasU",
@@ -41,7 +40,16 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
-    TabsPage 
+    TabsPage,
+    AdminPage,
+    CreatePage,
+    HomePage,
+    LocatePage,
+    OrdersPage,
+    BillComponent,
+    NavbarappComponent,
+    PlatesListComponent,
+    TranslatePipe
   ],
   imports: [
     BrowserModule,
@@ -50,11 +58,7 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,
-    ComponentsModule,
-    AdminPageModule,
-    OrdersPageModule,
-    CreatePageModule,
-    LocatePageModule,
+    AngularFireStorageModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
@@ -62,7 +66,13 @@ export const firebaseConfig = {
     MyApp,
     LoginPage,
     TabsPage,
-    BillComponent
+    BillComponent,
+    PlatesListComponent,
+    AdminPage,
+    CreatePage,
+    HomePage,
+    LocatePage,
+    OrdersPage
   ],
   providers: [
     StatusBar,

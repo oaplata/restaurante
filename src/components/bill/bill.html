@@ -1,34 +1,34 @@
 <div>
-  <navbar title="Factura"></navbar>
+  <navbarapp [title]="'Factura' | translate | async"></navbarapp>
 </div>
 <div class="bill">
   <div class="header">
-    <h3>Restaurante</h3>
-    <h4>Rinconcito del Sabor</h4>
-    <h4>Horario: 8:00 Am - 4:00 Pm</h4>
+    <h3>{{'Restaurante' | translate | async}}</h3>
+    <h4>{{'Rinconcito del Sabor' | translate | async}}</h4>
+    <h4>{{'Horario: 8:00 Am - 4:00 Pm'  | translate | async}}</h4>
     <br>
     <h5>Nit: 1100970844-4</h5>
     <h5>{{'Dirección' | translate | async }}: Cra 10 # 12 - 37</h5>
-    <h5>Telefono: 7236459</h5>
+    <h5>{{'Telefono: 7236459' | translate | async}}</h5>
   </div>
   <div class="body">
     <table>
       <thead>
         <tr>
-          <td colspan="2">{{order.address? 'Dirección' : 'Mesa'}}</td>
-          <td colspan="2">{{order.table? order.table : order.address}}</td>
+          <td colspan="2">{{order.address? 'Dirección' : 'Numero de Mesa' | translate | async}}</td>
+          <td colspan="2">{{order.table? order.table : order.address | translate | async}}</td>
         </tr>
         <tr>
           <td>#</td>
-          <td>Descripción</td>
-          <td>Valor</td>
-          <td>Total</td>
+          <td>{{'Descripción' | translate | async}}</td>
+          <td>{{'Valor' | translate | async}}</td>
+          <td>{{'Total' | translate | async}}</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let plate of order.plates">
             <td>{{plate.amount}}</td>
-            <td>{{plate.name}}</td>
+            <td>{{plate.name  | translate | async}}</td>
             <td>{{plate.value | currency:'$':'':'1.0-0'}}</td>
             <td>{{plate.value * plate.amount | currency:'$':'':'1.0-0'}}</td>
         </tr>
@@ -38,7 +38,7 @@
     <p> total: {{getTotal() | currency: '$':'':'1.0-0'}} </p>
   </div>
   <div class="foter">
-    <button ion-button *ngIf="order.state === 'active'" (click)="closeOrder()">Cerrar Orden</button>
-    <button ion-button (click)="cancell()">Cancelar</button>
+    <button ion-button *ngIf="order.state === 'active'" (click)="closeOrder()">{{'Cerrar Orden' | translate | async}}</button>
+    <button ion-button (click)="cancell()">{{'Cancelar' | translate | async}}</button>
   </div>
 </div>

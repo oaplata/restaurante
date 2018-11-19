@@ -38,8 +38,8 @@ export class BillComponent {
     this.notifyOrderClosedEvent();
   }
 
-  notifyOrderClosedEvent() {
-    let message: string = "Orden cerrada con exito";
+  async notifyOrderClosedEvent() {
+    let message: string = await this.translate.translateText("Orden cerrada con exito");
     const alert = this.alertCtrl.create({
       message,
       buttons: [{

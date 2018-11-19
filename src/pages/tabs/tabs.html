@@ -1,6 +1,6 @@
 <ion-tabs #menu>
-  <ion-tab [root]="orders" tabTitle="Ordernes"></ion-tab>
-  <ion-tab [root]="create" tabTitle="+"></ion-tab>
-  <ion-tab [root]="locate" tabTitle="localizanos"></ion-tab>
-  <ion-tab [root]="admin" tabTitle="mas"></ion-tab>
+  <ion-tab [root]="orders" tabIcon="md-alarm"></ion-tab>
+  <ion-tab [root]="create" tabIcon="md-add"></ion-tab>
+  <ion-tab [root]="locate" tabIcon="md-globe"></ion-tab>
+  <ion-tab [root]="admin" tabIcon="md-key" *ngIf="user.role === 'admin'"></ion-tab>
 </ion-tabs>

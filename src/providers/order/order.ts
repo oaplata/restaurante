@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { Order } from '../../interfaces/order';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/toPromise';
+import { Plate } from '../../interfaces/plate';
 
 /*
   Generated class for the OrderProvider provider.
@@ -47,6 +48,15 @@ export class OrderProvider {
   
   getOrders(){
     return this.angulaFiireDataBase.list('orders')
+  }
+
+  async createPlate(plate: Plate) {
+    await this.angulaFiireDataBase.object("menu").set(plate);
+    return true;
+  }
+
+  getPlate() {
+    return this.angulaFiireDataBase.object("menu").valueChanges().first().toPromise();
   }
 
 }

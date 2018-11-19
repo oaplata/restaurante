@@ -5,55 +5,69 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>admin</ion-title>
-  </ion-navbar>
-
+  <navbarapp [title]="'Administrador' | translate | async"></navbarapp>
 </ion-header>
 
 
 <ion-content padding>
   <ion-segment [(ngModel)]="page">
     <ion-segment-button value="users">
-      Usuarios
+      {{'Usuarios' | translate | async}}
     </ion-segment-button>
     <ion-segment-button value="sales">
-      Ventas
+      {{'Ventas' | translate | async}}
     </ion-segment-button>
   </ion-segment>
 
-  <div *ngIf="page === 'users'">
+  <div *ngIf="page === 'users'" class="users">
     <ion-card *ngFor="let user of users">
       <ion-card-header>
-        <h1>{{user.name}}</h1>
+        <h1>{{user.name | lowercase }}</h1>
         <img [src]="user.photo" [alt]="user.uid">
       </ion-card-header>
       <ion-card-content>
-          <ion-list radio-group [(ngModel)]="user.role">
-              <ion-list-header>
-                Rol
-              </ion-list-header>
-            
-              <ion-item>
-                <ion-label>Cliente</ion-label>
-                <ion-radio value="cliente" (click)="changeRol(user)"></ion-radio>
-              </ion-item>
-            
-              <ion-item>
-                <ion-label>Mesero</ion-label>
-                <ion-radio value="mesero" (click)="changeRol(user)"></ion-radio>
-              </ion-item>
-            
-              <ion-item>
-                <ion-label>Administrador</ion-label>
-                <ion-radio value="admin" (click)="changeRol(user)"></ion-radio>
-              </ion-item>
-            </ion-list>
+        <ion-list radio-group [(ngModel)]="user.role">
+          <ion-list-header>
+            {{'Rol' | translate | async}}
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>{{'Cliente' | translate | async}}</ion-label>
+            <ion-radio value="cliente" (click)="changeRol(user)"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>{{'Camarero' | translate | async}}</ion-label>
+            <ion-radio value="mesero" (click)="changeRol(user)"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>{{'Administrador' | translate | async}}</ion-label>
+            <ion-radio value="admin" (click)="changeRol(user)"></ion-radio>
+          </ion-item>
+        </ion-list>
       </ion-card-content>
     </ion-card>
   </div>
   <div *ngIf="page === 'sales'">
-    <h3>Ventas totales: {{total | currency:'$':'':'1.0-0'}}</h3>
+    <br><br>
+    <h3>{{'Ventas totales:' | translate | async}} {{total | currency:'$':'':'1.0-0'}}</h3>
+    <h3>{{'Total de pedidos:' | translate | async}} {{orders.length}}</h3>
+    <br><br>
+
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary" floating>{{'Nombre del menú' | translate | async}}</ion-label>
+        <ion-input type="text" [(ngModel)]="menuName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" floating>{{'Precio del menú' | translate | async}}</ion-label>
+        <ion-input type="number" [(ngModel)]="menuVale"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-input type="file" accept="image/*" (change)="changeFile($event)"></ion-input>
+      </ion-item> -->
+      <button ion-button (click)="saveMenu()">{{'Guardar' | translate | async}}</button>
+    </ion-list>
   </div>
 </ion-content>

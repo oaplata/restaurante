@@ -1,25 +1,23 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>orders</ion-title>
-  </ion-navbar>
+  <navbarapp [title]="'Ordenes' | translate | async"></navbarapp>
 </ion-header>
 
 
 <ion-content padding>
   <ion-segment [(ngModel)]="active">
     <ion-segment-button value="true">
-      {{'Activas'}}
+      {{'Activas' | translate | async}}
     </ion-segment-button>
     <ion-segment-button value="false">
-      Todas
+      {{'Todas' | translate | async}}
     </ion-segment-button>
   </ion-segment>
 
   <div *ngIf="active === 'true'">
     <ion-card *ngFor="let order of activeOrders">
       <ion-card-header>
-        <h1 *ngIf="order.type === 'mesa'">Mesa: {{order.table}}</h1>
-        <h1 *ngIf="order.type === 'llevar'">Dirección: {{order.address}}</h1>
+        <h1 *ngIf="order.type === 'mesa'">{{'Numero de Mesa:' | translate | async}} {{order.table}}</h1>
+        <h1 *ngIf="order.type === 'llevar'">{{'Dirección:' | translate | async}} {{order.address}}</h1>
         <span *ngIf="order.state === 'active'">
           <ion-icon name="information-circle" color="info"></ion-icon>
         </span>
@@ -33,25 +31,25 @@
       <ion-card-content>
         <ul>
           <li *ngFor="let plate of order.plates">
-            <h2>{{plate.amount}} - {{plate.name}}</h2>
-            <p>{{plate.description}}</p>
+            <h2>{{plate.amount}} - {{plate.name | translate | async}}</h2>
+            <p *ngIf="plate.description">{{plate.description | translate | async}}</p>
           </li>
         </ul>
       </ion-card-content>
       <ion-row>
         <ion-col>
           <button ion-button block (click)="editOrder(order)">
-            <div>Editar</div>
+            <div>{{'Editar Orden' | translate | async}}</div>
           </button>
         </ion-col>
         <ion-col>
           <button ion-button block (click)="billOrder(order)">
-            <div>Cobrar</div>
+            <div>{{'Cobrar' | translate | async}}</div>
           </button>
         </ion-col>
         <ion-col>
           <button ion-button block (click)="cancellOrder(order)">
-            <div>Cancelar</div>
+            <div>{{'Cancelar' | translate | async}}</div>
           </button>
         </ion-col>
       </ion-row>
@@ -60,8 +58,8 @@
   <div *ngIf="active === 'false'">
     <ion-card *ngFor="let order of allOrders">
       <ion-card-header>
-        <h1 *ngIf="order.type === 'mesa'">Mesa: {{order.table}}</h1>
-        <h1 *ngIf="order.type === 'llevar'">Dirección: {{order.address}}</h1>
+        <h1 *ngIf="order.type === 'mesa'">{{'Numero de Mesa:' | translate | async}} {{order.table}}</h1>
+        <h1 *ngIf="order.type === 'llevar'">{{'Dirección:' | translate | async}} {{order.address}}</h1>
         <span *ngIf="order.state === 'active'">
           <ion-icon name="information-circle" color="info"></ion-icon>
         </span>
@@ -75,15 +73,15 @@
       <ion-card-content>
         <ul>
           <li *ngFor="let plate of order.plates">
-            <h2>{{plate.amount}} - {{plate.name}}</h2>
-            <p>{{plate.description}}</p>
+            <h2>{{plate.amount}} - {{plate.name | translate | async}}</h2>
+            <p *ngIf="plate.description">{{plate.description | translate | async}}</p>
           </li>
         </ul>
       </ion-card-content>
       <ion-row>
         <ion-col>
           <button ion-button block (click)="billOrder(order)">
-            <div>Ver Factura</div>
+            <div>{{'Ver Factura' | translate | async}}</div>
           </button>
         </ion-col>
       </ion-row>

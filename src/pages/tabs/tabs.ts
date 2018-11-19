@@ -4,6 +4,7 @@ import { CreatePage } from './../create/create';
 import { AdminPage } from './../admin/admin';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
 @Component({
@@ -16,12 +17,13 @@ export class TabsPage {
   public create = CreatePage;
   public locate = LocatePage;
   public orders = OrdersPage;
+  public user: any = {role: ''};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private authProvider: AuthProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TabsPage');
+  async ionViewDidLoad() {
+    this.user = await this.authProvider.getSesion();  
   }
 
 }

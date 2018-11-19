@@ -1,12 +1,15 @@
+import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { Order } from '../../interfaces/order';
 import { Plate } from '../../interfaces/plate';
 import { AuthProvider } from '../../providers/auth/auth';
 import { OrderProvider } from '../../providers/order/order';
+import { plates } from '../../assets/plates';
+import { PlatesListComponent } from '../../components/plates-list/plates-list';
+import { TranslateProvider } from '../../providers/translate/translate';
 
-@IonicPage()
 @Component({
     selector: 'page-create',
     templateUrl: 'create.html',
@@ -21,32 +24,16 @@ export class CreatePage {
     public isEditing: boolean = false;
 
     private order: Order;
-    private plates: Plate[];
+    public plates: Plate[] = plates;
     private user;
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private authProvider: AuthProvider,
         private orderProvider: OrderProvider,
         private alertCtrl: AlertController,
-        private storage: Storage) {
-        this.plates = [{
-            name: "carne",
-            value: 8000,
-            amount: 0,
-            description: ''
-        },
-        {
-            name: "pechuga",
-            value: 8000,
-            amount: 0,
-            description: ''
-        },
-        {
-            name: "pernil",
-            value: 8000,
-            amount: 0,
-            description: ''
-        }]
+        private storage: Storage,
+        private modalCtrl: ModalController,
+        private translateProvider: TranslateProvider) {
     }
 
     getOrder(): Order {
@@ -102,20 +89,21 @@ export class CreatePage {
         }
         this.adressOrder = null;
         this.tableOrder = null;
-        this.amountPlate =  null;
+        this.amountPlate = null;
         this.plateOrder = null;
         this.descriptionPlate = null;
         this.order = null;
         this.notifyOrderCreateEvent(created);
     }
 
-    notifyOrderCreateEvent(result) {
+    async notifyOrderCreateEvent(result) {
         let message: string;
         if (result) {
             message = 'Orden creada con exito';
         } else {
             message = 'Esta orden no pudo ser creada por favor intente de nuevo'
         }
+        message = await this.translateProvider.translateText(message);
         const alert = this.alertCtrl.create({
             message,
             buttons: ['Ok']
@@ -138,15 +126,18 @@ export class CreatePage {
         }
     }
 
-    async ionViewWillEnter(){
+    async ionViewWillEnter() {
         this.user = await this.authProvider.getSesion().catch(err => console.log(err));
         if (!this.user) {
-            this.navCtrl.setRoot('page-login');
+            this.navCtrl.setRoot(LoginPage);
         }
 
         this.isEditing = false;
         await this.storage.ready();
         const order = await this.storage.get('order');
+        const menu: any = await this.orderProvider.getPlate();
+
+        this.plates.unshift(menu);
 
         if (order) {
             this.order = order;
@@ -156,6 +147,14 @@ export class CreatePage {
             this.tableOrder = this.order.table || '';
             this.isEditing = true;
         }
+    }
+
+    openPlatesModal() {
+        const bill = this.modalCtrl.create(PlatesListComponent, {plates: this.plates});
+        bill.present();
+        bill.onDidDismiss((plate) => {
+            this.plateOrder = plate;
+        })
     }
 
 }
